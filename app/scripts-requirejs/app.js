@@ -83,13 +83,14 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         $scope.message = '';
         $scope.showMessage = false;
 
+        $scope.currentImage = 0;
+
         // FIXME - not working
         $scope.galleryJson = $routeParams.target;
-        console.log("galleryJson");
+        console.log('galleryJson');
         console.log($scope.galleryJson);
 
         $scope.dataModelService = dataModelService;
-        $scope.categories = dataModelService.model.taskCategories;
 
         $scope.$on('$routeChangeSuccess', function( $currentRoute, $previousRoute ) {
             $rootScope.$broadcast('loaddata', {location: $scope.galleryJson});

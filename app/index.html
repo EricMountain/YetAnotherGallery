@@ -37,8 +37,12 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div ng-repeat="image in dataModelService.model.images">
-          <img src="{{dataModelService.imageUrl}}/images/small/{{image.file}}">
+        <div ng-repeat="image in dataModelService.model.images" class="thumbnails">
+          <img src="{{dataModelService.imageUrl}}/images/small/{{image.file}}" class="thumbnail">
+        </div>
+
+        <div class="main">
+          <img src="{{dataModelService.imageUrl}}/images/medium/{{dataModelService.model.images[currentImage].file}}" class="main-image">
         </div>
 
         <div id="alert-box-container">
