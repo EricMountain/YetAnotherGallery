@@ -83,6 +83,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         $scope.message = '';
         $scope.showMessage = false;
 
+        // FIXME - not working
         $scope.galleryJson = $routeParams.target;
         console.log("galleryJson");
         console.log($scope.galleryJson);
