@@ -1,3 +1,6 @@
+# Warning: this is not yet usable at all.
+
+
 # Yet Another Gallery
 
 Yet another photo gallery.  Just because I didn't really like what I found elsewhere…
