@@ -11,7 +11,7 @@ Yet another photo gallery.  Just because I didn't really like what I found elsew
 ### Download the code
 
 ````Shell
-git clone https://github.com/EricMountain/YAGallery.git
+git clone https://github.com/EricMountain/YetAnotherGallery.git
 ````
 
 ### Serve YAGallery from a web server
