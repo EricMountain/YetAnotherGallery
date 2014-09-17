@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>YAGallery</title>
+        <meta name="description" content="Photo gallery">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Yet Another Gallery | (c) 2014 Eric Mountain | https://github.com/EricMountain/YAGallery -->
+
+        <link rel="icon" type="image/png" href="images/YAGallery-16x16.png" />
+
+        <!-- build:css(.) styles/vendor.css -->
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/normalize.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/perfect-scrollbar.min.css">
+        <link rel="stylesheet" href="styles/taskslayer.css">
+        <!-- endbuild -->
+
+        <!-- build:js(app) scripts/misc.js -->
+        <script src="scripts/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="scripts/plugins.js"></script>
+        <!-- endbuild -->
+
+    </head>
+    <body ng-controller="yaGalleryCtrl" ng-keydown="keypress($event)">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        Hi there!
+
+        <div ng-repeat="image in dataModelService.model.images">
+          <img src="{{dataModelService.imageUrl}}/images/small/{{image.file}}">
+        </div>
+
+
+        <div id="alert-box-container">
+          <div id="alert-box" ng-show="showMessage" class="show-hide">
+            {{message}}
+          </div>
+        </div>
+
+        <div id="wait-pane-master">
+            <div id="wait-pane-container">
+                <div id="wait-pane">
+                    Loading...
+                </div>
+            </div>
+        </div>
+
+
+        <!-- build:js(.) scripts/vendor/oldieshim.js -->
+        <!--[if lt IE 9]>
+        <script src="bower_components/es5-shim/es5-shim.js"></script>
+        <script src="bower_components/json3/lib/json3.min.js"></script>
+        <![endif]-->
+        <!-- endbuild -->
+
+        <script src="scripts-requirejs/vendor/require-2.1.14.minified.js" data-main="scripts-requirejs/main"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <!-- script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script -->
+    </body>
+</html>
