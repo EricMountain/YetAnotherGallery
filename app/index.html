@@ -23,7 +23,7 @@
         <link rel="stylesheet" href="styles/normalize.css">
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/perfect-scrollbar.min.css">
-        <link rel="stylesheet" href="styles/taskslayer.css">
+        <link rel="stylesheet" href="styles/yagallery.css">
         <!-- endbuild -->
 
         <!-- build:js(app) scripts/misc.js -->
@@ -37,12 +37,12 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div ng-repeat="image in dataModelService.model.images" class="thumbnails">
+        <!-- div ng-repeat="image in dataModelService.model.images" class="thumbnails">
           <img src="{{dataModelService.imageUrl}}/images/small/{{image.file}}" class="thumbnail">
-        </div>
+        </div -->
 
-        <div class="main">
-          <img src="{{dataModelService.imageUrl}}/images/medium/{{dataModelService.model.images[currentImage].file}}" class="main-image">
+        <div id="main-photo-container">
+          <img src="{{dataModelService.imageUrl}}/images/medium/{{dataModelService.model.images[currentImage].file}}" id="main-photo" ng-keydown="keypress({event: $event, category: category, index: $index})">
         </div>
 
         <div id="alert-box-container">

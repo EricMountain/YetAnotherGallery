@@ -134,6 +134,29 @@ body {
     color: green;
 }
 
+body {
+     color: red;
+}
+
+#main-photo-container {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    /*border: 1px solid darkred;*/
+    /*border: none;*/
+}
+
+#main-photo {
+    position: relative;
+    left: -50%;
+    top: -60%;
+    color: white;
+    font-weight: bold;
+    padding: 2em;
+    /*border: 1px solid blue;*/
+}
+
+
 #alert-box-container {
     position: fixed;
     left: 50%;

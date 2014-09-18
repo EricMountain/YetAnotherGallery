@@ -6,6 +6,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
     // Handle resizing
     function resizeSubBlocks() {
+/*
         var marginPct = 0;
         var pageHeight = $(window).height();
         var marginHeight = pageHeight * marginPct / 100;
@@ -19,6 +20,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         var scrollNoneHeight = $('.scroll-none').outerHeight(true);
         var scrollerHeight = subBlockHeight - scrollNoneHeight;
         $('.scroller').css({'height': scrollerHeight});
+*/
     }
 
     $(window).resize(function() {
@@ -95,6 +97,29 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         $scope.$on('$routeChangeSuccess', function( $currentRoute, $previousRoute ) {
             $rootScope.$broadcast('loaddata', {location: $scope.galleryJson});
         });
+
+        $scope.keypress = function($event, category, index) {
+            var isHandledHere = true;
+
+            switch($event.keyCode) {
+            case 39: // Right - next image
+                if ($scope.currentImage < $scope.dataModelService.model.images.length - 1)
+                    $scope.currentImage += 1;
+                break;
+            case 37: // Left - previous image
+                if ($scope.currentImage > 0)
+                    $scope.currentImage -= 1;
+                break;
+            default:
+                isHandledHere = false;
+            }
+
+            if (isHandledHere)
+                $event.preventDefault();
+        };
+
+
+
     }]);
 
     angular.bootstrap(document, ['yaGalleryApp']);
