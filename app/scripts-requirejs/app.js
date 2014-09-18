@@ -62,7 +62,8 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
     }]);
 
     yaGalleryApp.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('', { controller: 'yaGalleryCtrl'})
+        $routeProvider
+            .when('/:target*', { controller: 'yaGalleryCtrl'})
             .otherwise({ controller: 'yaGalleryCtrl'});
     }]);
 
@@ -73,14 +74,19 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
         $scope.currentImage = 0;
 
-        // FIXME - not working
-        $scope.galleryJson = $routeParams.target;
-        console.log('galleryJson');
-        console.log($scope.galleryJson);
-
         $scope.dataModelService = dataModelService;
 
         $scope.$on('$routeChangeSuccess', function( $currentRoute, $previousRoute ) {
+            if (typeof $routeParams.target !== 'undefined') {
+                $scope.galleryJson = $location.protocol() + ':/' + $routeParams.target;
+                console.log('target');
+                console.log($routeParams.target);
+                console.log('galleryJson');
+                console.log($scope.galleryJson);
+            } else {
+                console.log('No target URL specified for JSON.');
+            }
+
             $rootScope.$broadcast('loaddata', {location: $scope.galleryJson});
         });
 
