@@ -6,27 +6,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
     // Handle resizing
     function resizeSubBlocks() {
-        console.log($('#main-photo-container').height());
         $('#main-photo-container').css({'height': $('#main-photo').height()});
-        $('#main-photo-container').css({'left': '50%'});
-        $('#main-photo-container').css({'top': '50%'});
-        $('#main-photo').css({'left': '-50%'});
-        $('#main-photo').css({'top': '-50%'});
-/*
-        var marginPct = 0;
-        var pageHeight = $(window).height();
-        var marginHeight = pageHeight * marginPct / 100;
-        var usableHeight = pageHeight - marginHeight * 2;
-
-        // Make sub-blocks half the size of the page
-        var subBlockHeight = usableHeight / 2;
-        $('.sub-block').css({'height': subBlockHeight});
-
-        // Make the scrolled areas take up what's left of the sub-blocks
-        var scrollNoneHeight = $('.scroll-none').outerHeight(true);
-        var scrollerHeight = subBlockHeight - scrollNoneHeight;
-        $('.scroller').css({'height': scrollerHeight});
-*/
     }
 
     $(window).resize(function() {
@@ -119,8 +99,6 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             default:
                 isHandledHere = false;
             }
-
-            /*resizeSubBlocks();*/
 
             if (isHandledHere)
                 $event.preventDefault();

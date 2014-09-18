@@ -142,8 +142,6 @@ body {
     position: fixed;
     left: 50%;
     top: 50%;
-    /*height: 600px;*/
-    border: 1px solid darkred;
     /*border: none;*/
 }
 
@@ -151,11 +149,9 @@ body {
     position: relative;
     left: -50%;
     top: -50%;
-    /*height: 600px;*/
     color: white;
     font-weight: bold;
     padding: 2em;
-    border: 1px solid blue;
 }
 
 
