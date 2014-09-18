@@ -4,3 +4,5 @@ dist
 .sass-cache
 node_modules
 app/sample/
+real-life-sample/
+
