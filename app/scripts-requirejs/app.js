@@ -6,6 +6,12 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
     // Handle resizing
     function resizeSubBlocks() {
+        console.log($('#main-photo-container').height());
+        $('#main-photo-container').css({'height': $('#main-photo').height()});
+        $('#main-photo-container').css({'left': '50%'});
+        $('#main-photo-container').css({'top': '50%'});
+        $('#main-photo').css({'left': '-50%'});
+        $('#main-photo').css({'top': '-50%'});
 /*
         var marginPct = 0;
         var pageHeight = $(window).height();
@@ -114,17 +120,25 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 isHandledHere = false;
             }
 
+            /*resizeSubBlocks();*/
+
             if (isHandledHere)
                 $event.preventDefault();
         };
 
-
-
     }]);
 
-    angular.bootstrap(document, ['yaGalleryApp']);
+    yaGalleryApp.directive('centreImage', function() {
+        return {
+            link: function(scope, element, attrs) {
+                element.bind('load', function(e) {
+                    resizeSubBlocks();
+                });
+            }
+        };
+    });
 
-    resizeSubBlocks();
+    angular.bootstrap(document, ['yaGalleryApp']);
 
     // Hide the loading pane...
     $('#wait-pane-master').css({visibility: 'hidden'});
