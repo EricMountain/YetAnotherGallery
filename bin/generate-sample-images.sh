@@ -2,7 +2,7 @@
 
 set -o errexit
 
-# From http://www.imagemagick.org/Usage/text/#text_operators
+# ImageMagick label generation trick from http://www.imagemagick.org/Usage/text/#text_operators
 
 approot=${0%/*}/..
 
