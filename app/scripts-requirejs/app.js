@@ -27,6 +27,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             model: {},
 
             LoadData: function (event, args) {
+                // fixme - not always going to load sample.json + need to decide how to get the medium/small image urls right for loading medium vs small etc
                 if (typeof args.location === 'undefined') {
                     service.imageUrl = 'sample';
                 } else {
@@ -78,7 +79,9 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
         $scope.$on('$routeChangeSuccess', function( $currentRoute, $previousRoute ) {
             if (typeof $routeParams.target !== 'undefined') {
+                // fixme - doesn't work the same if depending on the type of url
                 $scope.galleryJson = $location.protocol() + ':/' + $routeParams.target;
+                $scope.galleryJson = $routeParams.target;
                 console.log('target');
                 console.log($routeParams.target);
                 console.log('galleryJson');
