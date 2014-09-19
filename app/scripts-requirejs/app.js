@@ -27,7 +27,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             model: {},
 
             LoadData: function (event, args) {
-                // fixme - not always going to load sample.json + need to decide how to get the medium/small image urls right for loading medium vs small etc
+
                 if (typeof args.location === 'undefined') {
                     console.error('No gallery URL supplied.');
                     return;
@@ -87,15 +87,9 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 $scope.galleryBaseUrl = $routeParams.target;
 
                 console.log('Gallery base URL from routeParams: ' + $scope.galleryBaseUrl);
-
-                //$scope.galleryJson = $location.protocol() + ':/' + $routeParams.target;
-                //$scope.galleryJson = $routeParams.target;
-                //console.log();
-                //console.log('galleryJson');
-                //console.log($scope.galleryJson);
             } else {
                 $scope.galleryBaseUrl = 'sample/sample';
-                console.log('No target URL specified for JSON -> ' + $scope.galleryBaseUrl);
+                console.log('No target URL specified for JSON -> using: ' + $scope.galleryBaseUrl);
             }
 
             $rootScope.$broadcast('loaddata', {location: $scope.galleryBaseUrl});
