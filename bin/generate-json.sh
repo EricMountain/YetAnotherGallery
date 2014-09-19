@@ -1,7 +1,8 @@
 #!/bin/bash
 
 set -o errexit
-set -x
+#set -x
+
 approot=${0%/*}/..
 
 if [ -z "$1" -o ! -d "$1" ] ; then
@@ -23,12 +24,23 @@ cat - >> $j <<EOF
 EOF
 
 cd $1/medium
-find . -follow -type f -exec echo '               { "file": "'{}'", "description": "Image '{}'" },' \; >> $j
-cd -
+
+first=1
+for x in * ; do
+    if [ $first -ne 1 ] ; then
+        echo ',' >> $j
+    else
+        first=0
+    fi
+
+    echo -n '               { "file": "'$x'", "description": "Image '$x'" }' >> $j
+done
+cd - > /dev/null
 
 cat - >> $j <<EOF
+
             ]
 }
 EOF
 
-sed -i -e 's/.\///g' $j
+
