@@ -29,12 +29,12 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             LoadData: function (event, args) {
                 // fixme - not always going to load sample.json + need to decide how to get the medium/small image urls right for loading medium vs small etc
                 if (typeof args.location === 'undefined') {
-                    service.imageUrl = 'sample';
-                } else {
-                    service.imageUrl = args.location;
+                    console.error('No gallery URL supplied.');
+                    return;
                 }
 
-                service.jsonUrl = service.imageUrl + '/sample.json';
+                service.jsonUrl = args.location + '.json';
+                service.imageUrl = args.location;
 
                 console.log('image url:', service.imageUrl);
                 console.log('json url: ', service.jsonUrl);
@@ -79,18 +79,26 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
         $scope.$on('$routeChangeSuccess', function( $currentRoute, $previousRoute ) {
             if (typeof $routeParams.target !== 'undefined') {
-                // fixme - doesn't work the same if depending on the type of url
-                $scope.galleryJson = $location.protocol() + ':/' + $routeParams.target;
-                $scope.galleryJson = $routeParams.target;
-                console.log('target');
-                console.log($routeParams.target);
-                console.log('galleryJson');
-                console.log($scope.galleryJson);
+
+                // http://localhost:9000/#/http://localhost:9000/sample/sample
+                // http://localhost:9000/#/http://localhost/yag-sample/Pentax-20140905
+                console.log('target: ' + $routeParams.target);
+
+                $scope.galleryBaseUrl = $routeParams.target;
+
+                console.log('Gallery base URL from routeParams: ' + $scope.galleryBaseUrl);
+
+                //$scope.galleryJson = $location.protocol() + ':/' + $routeParams.target;
+                //$scope.galleryJson = $routeParams.target;
+                //console.log();
+                //console.log('galleryJson');
+                //console.log($scope.galleryJson);
             } else {
-                console.log('No target URL specified for JSON.');
+                $scope.galleryBaseUrl = 'sample/sample';
+                console.log('No target URL specified for JSON -> ' + $scope.galleryBaseUrl);
             }
 
-            $rootScope.$broadcast('loaddata', {location: $scope.galleryJson});
+            $rootScope.$broadcast('loaddata', {location: $scope.galleryBaseUrl});
         });
 
         $scope.keypress = function($event, category, index) {

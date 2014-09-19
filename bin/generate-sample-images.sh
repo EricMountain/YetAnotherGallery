@@ -9,12 +9,12 @@ approot=${0%/*}/..
 
 # Generate sample images for test purposes
 
-mkdir -p $approot/app/sample/images/medium
-mkdir -p $approot/app/sample/images/small
+mkdir -p $approot/app/sample/sample/medium
+mkdir -p $approot/app/sample/sample/small
 
 for i in {1..100} ; do
-    convert -background lightgray -fill black -size 800x600 -gravity center label:$i $approot/app/sample/images/medium/$i.jpg
-    convert -background lightgray -fill black -size 180x120 -gravity center label:$i $approot/app/sample/images/small/$i.jpg
+    convert -background lightgray -fill black -size 800x600 -gravity center label:$i $approot/app/sample/sample/medium/$i.jpg
+    convert -background lightgray -fill black -size 180x120 -gravity center label:$i $approot/app/sample/sample/small/$i.jpg
 done
 
 # Generate matching JSON index
