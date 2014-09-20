@@ -37,10 +37,6 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- div ng-repeat="image in dataModelService.model.images" class="thumbnails">
-          <img ng-src="{{dataModelService.imageUrl}}/images/small/{{image.file}}" class="thumbnail">
-        </div -->
-
         <div id="main-photo-container">
           <img ng-src="{{dataModelService.imageUrl}}/medium/{{dataModelService.model.images[currentImage].file}}" id="main-photo" ng-keydown="keypress({event: $event, category: category, index: $index})" centre-image>
         </div>
