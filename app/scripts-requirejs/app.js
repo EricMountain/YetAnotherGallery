@@ -107,6 +107,12 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 if ($scope.currentImage > 0)
                     $scope.currentImage -= 1;
                 break;
+            case 36: // Home - go to 1st image
+                $scope.currentImage = 0;
+                break;
+            case 35: // End - go to last image
+                $scope.currentImage = $scope.dataModelService.model.images.length - 1;
+                break;
             default:
                 isHandledHere = false;
             }
