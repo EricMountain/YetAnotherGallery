@@ -6,6 +6,28 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
     // Handle resizing
     function resizeSubBlocks() {
+        //var marginPct = 0;
+        var pageWidth = $(window).width();
+        //var marginWidth = pageWidth * marginPct / 100;
+        //var usableWidth = pageWidth - marginWidth * 2;
+        var pageHeight = $(window).height();
+        //var marginHeight = pageHeight * marginPct / 100;
+        //var usableHeight = pageHeight - marginHeight * 2;
+
+        var image = new Image();
+        image.src = $('#main-photo').attr('src');
+        var imageWidth = image.naturalWidth;
+        var imageHeight = image.naturalHeight;
+
+        var newWidth = pageWidth;
+        var newHeight = imageHeight * pageWidth / imageWidth;
+        if (newHeight > pageHeight) {
+            newWidth = imageWidth * pageHeight / imageHeight;
+            newHeight = pageHeight;
+        }
+        $('#main-photo').css({'width': newWidth});
+        $('#main-photo').css({'height': newHeight});
+
         $('#main-photo-container').css({'height': $('#main-photo').height()});
     }
 
