@@ -17,6 +17,7 @@ requirejs.config({
         'angular-animate': '../../bower_components/angular-animate/angular-animate',
         'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
         'angular-route': '../../bower_components/angular-route/angular-route',
+        'angular-touch': '../../bower_components/angular-touch/angular-touch',
         'angular-scenario': '../../bower_components/angular-scenario/angular-scenario',
         jquery: 'vendor/jquery-1.10.2.min',
         'perfect-scrollbar': 'vendor/perfect-scrollbar.min',

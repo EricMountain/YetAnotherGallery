@@ -38,7 +38,12 @@
         <![endif]-->
 
         <div id="main-photo-container">
-          <img ng-src="{{dataModelService.imageUrl}}/large/{{dataModelService.model.images[currentImage].file}}" id="main-photo" ng-keydown="keypress({event: $event, category: category, index: $index})" centre-image>
+          <img ng-src="{{dataModelService.imageUrl}}/medium/{{dataModelService.model.images[currentImage].file}}"
+            id="main-photo"
+            ng-keydown="keypress({event: $event, index: $index})"
+            ng-swipe-left="swipe({event: $event, swipeLeft: true, index: $index})"
+            ng-swipe-right="swipe({event: $event, swipeLeft: false, index: $index})"
+            centre-image>
         </div>
 
         <div id="alert-box-container">

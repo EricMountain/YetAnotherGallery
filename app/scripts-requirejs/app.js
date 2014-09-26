@@ -1,7 +1,11 @@
 /*! Task Slayer | (c) 2014 Eric Mountain | https://github.com/EricMountain/TaskSlayer */
 
+// http://localhost:9000/#/http://localhost:9000/sample/sample
+// http://localhost:9000/#/http://localhost/yag-sample/Pentax-20140905
+// http://10.8.0.1/yagallery/#/http://10.8.0.1/yag-sample/Pentax-20140905
+
 /*jshint unused: vars */
-define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', 'angular-route', 'angular-animate'], function($) {
+define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', 'angular-route', 'angular-animate', 'angular-touch'], function($) {
     'use strict';
 
     // Handle resizing
@@ -36,7 +40,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
     });
 
     // Bootstrap Angular
-    var yaGalleryApp = angular.module('yaGalleryApp', ['ngRoute', 'ngAnimate', 'perfect_scrollbar']);
+    var yaGalleryApp = angular.module('yaGalleryApp', ['ngRoute', 'ngAnimate', 'ngTouch', 'perfect_scrollbar']);
 
     yaGalleryApp.factory('dataModelService', ['$rootScope', '$http', function ($rootScope, $http) {
 
@@ -102,8 +106,6 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         $scope.$on('$routeChangeSuccess', function( $currentRoute, $previousRoute ) {
             if (typeof $routeParams.target !== 'undefined') {
 
-                // http://localhost:9000/#/http://localhost:9000/sample/sample
-                // http://localhost:9000/#/http://localhost/yag-sample/Pentax-20140905
                 console.log('target: ' + $routeParams.target);
 
                 $scope.galleryBaseUrl = $routeParams.target;
@@ -117,7 +119,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             $rootScope.$broadcast('loaddata', {location: $scope.galleryBaseUrl});
         });
 
-        $scope.keypress = function($event, category, index) {
+        $scope.keypress = function($event, index) {
             var isHandledHere = true;
 
             switch($event.keyCode) {
@@ -141,6 +143,17 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
             if (isHandledHere)
                 $event.preventDefault();
+        };
+
+        $scope.swipe = function($event, swipeLeft, index) {
+            console.log('swiped: ' + swipeLeft);
+            if (swipeLeft) {
+                if ($scope.currentImage < $scope.dataModelService.model.images.length - 1)
+                    $scope.currentImage += 1;
+            } else {
+                if ($scope.currentImage > 0)
+                    $scope.currentImage -= 1;
+            }
         };
 
     }]);
