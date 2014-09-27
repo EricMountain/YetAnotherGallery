@@ -1,4 +1,4 @@
-/*! Task Slayer | (c) 2014 Eric Mountain | https://github.com/EricMountain/TaskSlayer */
+/*! Yet Another Gallery | (c) 2014 Eric Mountain | https://github.com/EricMountain/YetAnotherGallery */
 
 // http://localhost:9000/#/http://localhost:9000/sample/sample
 // http://localhost:9000/#/http://localhost/yag-sample/Pentax-20140905
