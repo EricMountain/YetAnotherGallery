@@ -156,6 +156,8 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             console.log('swiped right');
             if ($scope.currentImage > 0)
                 $scope.currentImage -= 1;
+            console.log('done swipe right');
+            console.log('new index: ' + $scope.currentImage);
         };
 
     }]);
