@@ -3,6 +3,7 @@
 // http://localhost:9000/#/http://localhost:9000/sample/sample
 // http://localhost:9000/#/http://localhost/yag-sample/Pentax-20140905
 // http://10.8.0.1/yagallery/#/http://10.8.0.1/yag-sample/Pentax-20140905
+// http://192.168.1.11/yagallery/#/http://192.168.1.11/yag-sample/Pentax-20140905
 
 /*jshint unused: vars */
 define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', 'angular-route', 'angular-animate', 'angular-touch'], function($) {
@@ -119,7 +120,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             $rootScope.$broadcast('loaddata', {location: $scope.galleryBaseUrl});
         });
 
-        $scope.keypress = function($event, index) {
+        $scope.keypress = function($event) {
             var isHandledHere = true;
 
             switch($event.keyCode) {
@@ -145,15 +146,16 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 $event.preventDefault();
         };
 
-        $scope.swipe = function($event, swipeLeft, index) {
-            console.log('swiped: ' + swipeLeft);
-            if (swipeLeft) {
-                if ($scope.currentImage < $scope.dataModelService.model.images.length - 1)
-                    $scope.currentImage += 1;
-            } else {
-                if ($scope.currentImage > 0)
-                    $scope.currentImage -= 1;
-            }
+        $scope.swipeLeft = function($event) {
+            console.log('swiped left');
+            if ($scope.currentImage < $scope.dataModelService.model.images.length - 1)
+                $scope.currentImage += 1;
+        };
+
+        $scope.swipeRight = function($event) {
+            console.log('swiped right');
+            if ($scope.currentImage > 0)
+                $scope.currentImage -= 1;
         };
 
     }]);

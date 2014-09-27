@@ -37,13 +37,13 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div id="main-photo-container">
+        <div id="main-photo-container"
+             ng-swipe-left="swipeLeft({event: $event})"
+             ng-swipe-right="swipeRight({event: $event})">
           <img ng-src="{{dataModelService.imageUrl}}/medium/{{dataModelService.model.images[currentImage].file}}"
-            id="main-photo"
-            ng-keydown="keypress({event: $event, index: $index})"
-            ng-swipe-left="swipe({event: $event, swipeLeft: true, index: $index})"
-            ng-swipe-right="swipe({event: $event, swipeLeft: false, index: $index})"
-            centre-image>
+               id="main-photo"
+               ng-keydown="keypress({event: $event})"
+               centre-image>
         </div>
 
         <div id="alert-box-container">
