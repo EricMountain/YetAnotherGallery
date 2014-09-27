@@ -101,6 +101,8 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         $scope.showMessage = false;
 
         $scope.currentImage = 0;
+        $scope.currentImageUrl = '';
+        $scope.imageTShirtSize = '/medium/';
 
         $scope.dataModelService = dataModelService;
 
@@ -119,6 +121,15 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
             $rootScope.$broadcast('loaddata', {location: $scope.galleryBaseUrl});
         });
+
+        $scope.switchImage = function() {
+            if (typeof $scope.dataModelService.model.images !== 'undefined') {
+                $scope.currentImageUrl = $scope.dataModelService.imageUrl + $scope.imageTShirtSize + $scope.dataModelService.model.images[$scope.currentImage].file;
+                console.log('switched image: ' + $scope.currentImageUrl);
+            }
+        };
+
+        $scope.$on('dataloaded', function() {console.log('data loaded => switch image'); $scope.switchImage();});
 
         $scope.keypress = function($event) {
             var isHandledHere = true;
@@ -142,22 +153,40 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 isHandledHere = false;
             }
 
-            if (isHandledHere)
+            if (isHandledHere) {
+                $scope.switchImage();
                 $event.preventDefault();
+            }
         };
 
         $scope.swipeLeft = function($event) {
             console.log('swiped left');
-            if ($scope.currentImage < $scope.dataModelService.model.images.length - 1)
+            if ($scope.currentImage < $scope.dataModelService.model.images.length - 1) {
                 $scope.currentImage += 1;
+                $scope.switchImage();
+            }
         };
 
         $scope.swipeRight = function($event) {
             console.log('swiped right');
-            if ($scope.currentImage > 0)
+            if ($scope.currentImage > 0) {
                 $scope.currentImage -= 1;
+                $scope.switchImage();
+            }
             console.log('done swipe right');
             console.log('new index: ' + $scope.currentImage);
+        };
+
+        $scope.goFullscreen = function($event) {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                document.documentElement.msRequestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            }
         };
 
     }]);

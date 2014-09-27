@@ -32,19 +32,22 @@
         <!-- endbuild -->
 
     </head>
-    <body ng-controller="yaGalleryCtrl" ng-keydown="keypress($event)">
+    <body ng-controller="yaGalleryCtrl"
+          ng-keydown="keypress($event)"
+          ng-swipe-left="swipeLeft({event: $event})"
+          ng-swipe-right="swipeRight({event: $event})">
+
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div id="main-photo-container"
-             ng-swipe-left="swipeLeft({event: $event})"
-             ng-swipe-right="swipeRight({event: $event})">
-          <img ng-src="{{dataModelService.imageUrl}}/medium/{{dataModelService.model.images[currentImage].file}}"
+        <div id="main-photo-container">
+          <img ng-src="{{currentImageUrl}}"
                id="main-photo"
-               ng-keydown="keypress({event: $event})"
                centre-image>
         </div>
+
+        <button ng-click="goFullscreen({event: $event})" class="sexyButton">Launch Fullscreen</button>
 
         <div id="alert-box-container">
           <div id="alert-box" ng-show="showMessage" class="show-hide">
