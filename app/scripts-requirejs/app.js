@@ -53,6 +53,22 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
             model: {},
 
+            currentImageIndex: 0,
+            currentImageUrl: '',
+            imageTShirtSize: '/medium/',
+
+            cachedImages: {},
+            cachedImagesLowOffset: 0,
+            cachedImagesHighOffset: 0,
+
+            // Populate the initial cache.  Configurable size.  Proportional to time it takes to load images?
+            // Manage cursor that says where we are in cache, and loads + discards images
+            // Home/end moves are disruptive: keep a home+end cache independently of the current position?
+
+            // Process broadcast messages that say what is the image to display next.
+            // Load image into cache if not already available, then display
+            // Then do cache housekeeping
+
             LoadData: function (event, args) {
 
                 if (typeof args.location === 'undefined') {
@@ -100,6 +116,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         $scope.message = '';
         $scope.showMessage = false;
 
+        // Should move to the model?
         $scope.currentImage = 0;
         $scope.currentImageUrl = '';
         $scope.imageTShirtSize = '/medium/';
@@ -123,6 +140,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         });
 
         $scope.switchImage = function() {
+            // TODO: move to model service, and instead broadcast an action
             if (typeof $scope.dataModelService.model.images !== 'undefined') {
                 $scope.currentImageUrl = $scope.dataModelService.imageUrl + $scope.imageTShirtSize + $scope.dataModelService.model.images[$scope.currentImage].file;
                 console.log('switched image: ' + $scope.currentImageUrl);
