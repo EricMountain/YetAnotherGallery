@@ -178,7 +178,6 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         };
 
         $scope.swipeLeft = function($event) {
-            console.log('swiped left');
             if ($scope.currentImage < $scope.dataModelService.model.images.length - 1) {
                 $scope.currentImage += 1;
                 $scope.switchImage();
@@ -186,13 +185,10 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         };
 
         $scope.swipeRight = function($event) {
-            console.log('swiped right');
             if ($scope.currentImage > 0) {
                 $scope.currentImage -= 1;
                 $scope.switchImage();
             }
-            console.log('done swipe right');
-            console.log('new index: ' + $scope.currentImage);
         };
 
         $scope.goFullscreen = function($event) {
