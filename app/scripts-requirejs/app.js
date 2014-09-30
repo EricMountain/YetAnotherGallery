@@ -11,13 +11,8 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
     // Handle resizing
     function resizeSubBlocks() {
-        //var marginPct = 0;
         var pageWidth = $(window).width();
-        //var marginWidth = pageWidth * marginPct / 100;
-        //var usableWidth = pageWidth - marginWidth * 2;
         var pageHeight = $(window).height();
-        //var marginHeight = pageHeight * marginPct / 100;
-        //var usableHeight = pageHeight - marginHeight * 2;
 
         var image = new Image();
         image.src = $('#main-photo').attr('src');
