@@ -71,8 +71,6 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             // Then do cache housekeeping
 
             SwitchImage: function(event, args) {
-                console.log('SwitchImage invoked');
-                console.log(args);
                 var displacement = 'home';
                 if (typeof args.displacement !== 'undefined')
                     displacement = args.displacement;
@@ -158,11 +156,6 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         $scope.message = '';
         $scope.showMessage = false;
 
-        // Should move to the model?
-        // $scope.currentImage = 0;
-        // $scope.currentImageUrl = '';
-        // $scope.imageTShirtSize = '/medium/';
-
         $scope.dataModelService = dataModelService;
 
         $scope.$on('$routeChangeSuccess', function( $currentRoute, $previousRoute ) {
@@ -181,14 +174,6 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             $rootScope.$broadcast('loaddata', {location: $scope.galleryBaseUrl});
         });
 
-        // $scope.switchImage = function() {
-        //     // TODO: move to model service, and instead broadcast an action
-        //     if (typeof $scope.dataModelService.model.images !== 'undefined') {
-        //         $scope.currentImageUrl = $scope.dataModelService.imageUrl + $scope.imageTShirtSize + $scope.dataModelService.model.images[$scope.currentImage].file;
-        //         console.log('switched image: ' + $scope.currentImageUrl);
-        //     }
-        // };
-
         $scope.$on('dataloaded', function() {console.log('Data loaded'); /*$scope.switchImage();*/});
 
         $scope.keypress = function($event) {
@@ -197,46 +182,31 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             switch($event.keyCode) {
             case 39: // Right - next image
                 $rootScope.$broadcast('switchimage', {displacement: 'next'});
-                // if ($scope.currentImage < $scope.dataModelService.model.images.length - 1)
-                //     $scope.currentImage += 1;
                 break;
             case 37: // Left - previous image
                 $rootScope.$broadcast('switchimage', {displacement: 'previous'});
-                // if ($scope.currentImage > 0)
-                //     $scope.currentImage -= 1;
                 break;
             case 36: // Home - go to 1st image
                 $rootScope.$broadcast('switchimage', {displacement: 'home'});
-                // $scope.currentImage = 0;
                 break;
             case 35: // End - go to last image
                 $rootScope.$broadcast('switchimage', {displacement: 'end'});
-                // $scope.currentImage = $scope.dataModelService.model.images.length - 1;
                 break;
             default:
                 isHandledHere = false;
             }
 
             if (isHandledHere) {
-                // $scope.switchImage();
                 $event.preventDefault();
             }
         };
 
         $scope.swipeLeft = function($event) {
             $rootScope.$broadcast('switchimage', {displacement: 'next'});
-            // if ($scope.currentImage < $scope.dataModelService.model.images.length - 1) {
-            //     $scope.currentImage += 1;
-            //     $scope.switchImage();
-            // }
         };
 
         $scope.swipeRight = function($event) {
             $rootScope.$broadcast('switchimage', {displacement: 'previous'});
-            // if ($scope.currentImage > 0) {
-            //     $scope.currentImage -= 1;
-            //     $scope.switchImage();
-            // }
         };
 
         $scope.goFullscreen = function($event) {
