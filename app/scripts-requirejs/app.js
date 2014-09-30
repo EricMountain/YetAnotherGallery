@@ -24,14 +24,21 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         var imageWidth = image.naturalWidth;
         var imageHeight = image.naturalHeight;
 
-        var newWidth = pageWidth;
-        var newHeight = imageHeight * pageWidth / imageWidth;
-        if (newHeight > pageHeight) {
-            newWidth = imageWidth * pageHeight / imageHeight;
-            newHeight = pageHeight;
+        var newWidth = imageWidth;
+        var newHeight = imageHeight;
+        if (imageWidth > pageWidth || imageHeight > pageHeight) {
+            newWidth = pageWidth;
+            newHeight = imageHeight * pageWidth / imageWidth;
+
+            if (newHeight > pageHeight) {
+                newWidth = imageWidth * pageHeight / imageHeight;
+                newHeight = pageHeight;
+            }
         }
+
         $('#main-photo').css({'width': newWidth});
         $('#main-photo').css({'height': newHeight});
+
 
         $('#main-photo-container').css({'height': $('#main-photo').height()});
     }
