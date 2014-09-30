@@ -34,7 +34,6 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         $('#main-photo').css({'width': newWidth});
         $('#main-photo').css({'height': newHeight});
 
-
         $('#main-photo-container').css({'height': $('#main-photo').height()});
     }
 
@@ -55,7 +54,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
             model: {},
 
-            currentImageIndex: 0,
+            currentImageIndex: -1,
             currentImageUrl: '',
             imageTShirtSize: '/medium/',
 
@@ -70,6 +69,44 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             // Process broadcast messages that say what is the image to display next.
             // Load image into cache if not already available, then display
             // Then do cache housekeeping
+
+            SwitchImage: function(event, args) {
+                console.log('SwitchImage invoked');
+                console.log(args);
+                var displacement = 'home';
+                if (typeof args.displacement !== 'undefined')
+                    displacement = args.displacement;
+
+                if (typeof service.model.images !== 'undefined') {
+                    var newIndex = -1;
+                    switch(displacement) {
+                        case 'home':
+                            if (service.currentImageIndex !== 0)
+                                newIndex = 0;
+                            break;
+                        case 'end':
+                            if (service.currentImageIndex !== service.model.images.length - 1)
+                                newIndex = service.model.images.length - 1;
+                            break;
+                        case 'next':
+                            if (service.currentImageIndex < service.model.images.length - 1)
+                                newIndex = service.currentImageIndex + 1;
+                            break;
+                        case 'previous':
+                            if (service.currentImageIndex > 0)
+                            newIndex = service.currentImageIndex - 1;
+                            break;
+                        default:
+                            console.error('Bad displacement: ' + displacement);
+                    }
+
+                    if (newIndex !== -1) {
+                        service.currentImageIndex = newIndex;
+                        service.currentImageUrl = service.imageUrl + service.imageTShirtSize + service.model.images[service.currentImageIndex].file;
+                        console.log('Model switched image: ' + service.currentImageIndex);
+                    }
+                }
+            },
 
             LoadData: function (event, args) {
 
@@ -91,6 +128,8 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                         var data = angular.fromJson(json);
                         service.model = data;
 
+                        service.SwitchImage(null, {displacement: 'home'});
+
                         $rootScope.$broadcast('dataloaded', args);
                     })
                     .error(function(data, status, headers, config) {
@@ -103,6 +142,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         };
 
         $rootScope.$on('loaddata', service.LoadData);
+        $rootScope.$on('switchimage', service.SwitchImage);
 
         return service;
     }]);
@@ -119,9 +159,9 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
         $scope.showMessage = false;
 
         // Should move to the model?
-        $scope.currentImage = 0;
-        $scope.currentImageUrl = '';
-        $scope.imageTShirtSize = '/medium/';
+        // $scope.currentImage = 0;
+        // $scope.currentImageUrl = '';
+        // $scope.imageTShirtSize = '/medium/';
 
         $scope.dataModelService = dataModelService;
 
@@ -141,56 +181,62 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             $rootScope.$broadcast('loaddata', {location: $scope.galleryBaseUrl});
         });
 
-        $scope.switchImage = function() {
-            // TODO: move to model service, and instead broadcast an action
-            if (typeof $scope.dataModelService.model.images !== 'undefined') {
-                $scope.currentImageUrl = $scope.dataModelService.imageUrl + $scope.imageTShirtSize + $scope.dataModelService.model.images[$scope.currentImage].file;
-                console.log('switched image: ' + $scope.currentImageUrl);
-            }
-        };
+        // $scope.switchImage = function() {
+        //     // TODO: move to model service, and instead broadcast an action
+        //     if (typeof $scope.dataModelService.model.images !== 'undefined') {
+        //         $scope.currentImageUrl = $scope.dataModelService.imageUrl + $scope.imageTShirtSize + $scope.dataModelService.model.images[$scope.currentImage].file;
+        //         console.log('switched image: ' + $scope.currentImageUrl);
+        //     }
+        // };
 
-        $scope.$on('dataloaded', function() {console.log('data loaded => switch image'); $scope.switchImage();});
+        $scope.$on('dataloaded', function() {console.log('Data loaded'); /*$scope.switchImage();*/});
 
         $scope.keypress = function($event) {
             var isHandledHere = true;
 
             switch($event.keyCode) {
             case 39: // Right - next image
-                if ($scope.currentImage < $scope.dataModelService.model.images.length - 1)
-                    $scope.currentImage += 1;
+                $rootScope.$broadcast('switchimage', {displacement: 'next'});
+                // if ($scope.currentImage < $scope.dataModelService.model.images.length - 1)
+                //     $scope.currentImage += 1;
                 break;
             case 37: // Left - previous image
-                if ($scope.currentImage > 0)
-                    $scope.currentImage -= 1;
+                $rootScope.$broadcast('switchimage', {displacement: 'previous'});
+                // if ($scope.currentImage > 0)
+                //     $scope.currentImage -= 1;
                 break;
             case 36: // Home - go to 1st image
-                $scope.currentImage = 0;
+                $rootScope.$broadcast('switchimage', {displacement: 'home'});
+                // $scope.currentImage = 0;
                 break;
             case 35: // End - go to last image
-                $scope.currentImage = $scope.dataModelService.model.images.length - 1;
+                $rootScope.$broadcast('switchimage', {displacement: 'end'});
+                // $scope.currentImage = $scope.dataModelService.model.images.length - 1;
                 break;
             default:
                 isHandledHere = false;
             }
 
             if (isHandledHere) {
-                $scope.switchImage();
+                // $scope.switchImage();
                 $event.preventDefault();
             }
         };
 
         $scope.swipeLeft = function($event) {
-            if ($scope.currentImage < $scope.dataModelService.model.images.length - 1) {
-                $scope.currentImage += 1;
-                $scope.switchImage();
-            }
+            $rootScope.$broadcast('switchimage', {displacement: 'next'});
+            // if ($scope.currentImage < $scope.dataModelService.model.images.length - 1) {
+            //     $scope.currentImage += 1;
+            //     $scope.switchImage();
+            // }
         };
 
         $scope.swipeRight = function($event) {
-            if ($scope.currentImage > 0) {
-                $scope.currentImage -= 1;
-                $scope.switchImage();
-            }
+            $rootScope.$broadcast('switchimage', {displacement: 'previous'});
+            // if ($scope.currentImage > 0) {
+            //     $scope.currentImage -= 1;
+            //     $scope.switchImage();
+            // }
         };
 
         $scope.goFullscreen = function($event) {
