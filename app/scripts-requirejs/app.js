@@ -71,18 +71,18 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             // Then do cache housekeeping
 
             SwitchImage: function(event, args) {
-                var displacement = 'home';
+                var displacement = 'first';
                 if (typeof args.displacement !== 'undefined')
                     displacement = args.displacement;
 
                 if (typeof service.model.images !== 'undefined') {
                     var newIndex = -1;
                     switch(displacement) {
-                        case 'home':
+                        case 'first':
                             if (service.currentImageIndex !== 0)
                                 newIndex = 0;
                             break;
-                        case 'end':
+                        case 'last':
                             if (service.currentImageIndex !== service.model.images.length - 1)
                                 newIndex = service.model.images.length - 1;
                             break;
@@ -126,7 +126,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                         var data = angular.fromJson(json);
                         service.model = data;
 
-                        service.SwitchImage(null, {displacement: 'home'});
+                        service.SwitchImage(null, {displacement: 'first'});
 
                         $rootScope.$broadcast('dataloaded', args);
                     })
@@ -187,10 +187,10 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 $rootScope.$broadcast('switchimage', {displacement: 'previous'});
                 break;
             case 36: // Home - go to 1st image
-                $rootScope.$broadcast('switchimage', {displacement: 'home'});
+                $rootScope.$broadcast('switchimage', {displacement: 'first'});
                 break;
             case 35: // End - go to last image
-                $rootScope.$broadcast('switchimage', {displacement: 'end'});
+                $rootScope.$broadcast('switchimage', {displacement: 'last'});
                 break;
             default:
                 isHandledHere = false;
