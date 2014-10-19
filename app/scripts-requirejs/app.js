@@ -1,7 +1,7 @@
 /*! Yet Another Gallery | (c) 2014 Eric Mountain | https://github.com/EricMountain/YetAnotherGallery */
 
 // http://localhost:9000/#/http://localhost:9000/sample/sample
-// http://localhost:9000/#/http://localhost/yag-sample/Pentax-20140905
+// http://localhost/yagallery/#/http://localhost/yag-sample/Pentax-20140905
 // http://10.8.0.1/yagallery/#/http://10.8.0.1/yag-sample/Pentax-20140905
 // http://192.168.1.11/yagallery/#/http://192.168.1.11/yag-sample/Pentax-20140905
 
