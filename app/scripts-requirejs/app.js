@@ -62,6 +62,8 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             cachedImagesLowOffset: 0,
             cachedImagesHighOffset: 0,
 
+            imageLoading: true,
+
             // Populate the initial cache.  Configurable size.  Proportional to time it takes to load images?
             // Manage cursor that says where we are in cache, and loads + discards images
             // Home/end moves are disruptive: keep a home+end cache independently of the current position?
@@ -101,6 +103,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                     if (newIndex !== -1) {
                         service.currentImageIndex = newIndex;
                         service.currentImageUrl = service.imageUrl + service.imageTShirtSize + service.model.images[service.currentImageIndex].file;
+                        service.imageLoading = true;
                         console.log('Model switched image: ' + service.currentImageIndex);
                     }
                 }
@@ -223,15 +226,23 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
     }]);
 
-    yaGalleryApp.directive('centreImage', function() {
+    yaGalleryApp.directive('centreImage', ['dataModelService', '$timeout', function(dataModelService, $timeout) {
         return {
             link: function(scope, element, attrs) {
                 element.bind('load', function(e) {
+                    console.log('image loaded');
+                    console.log(dataModelService.imageLoading);
+                    $timeout(function() {
+                        scope.$apply(function() {
+                            dataModelService.imageLoading = false;
+                        });
+                    }, 1000);
+                    console.log(dataModelService.imageLoading);
                     resizeSubBlocks();
                 });
             }
         };
-    });
+    }]);
 
     angular.bootstrap(document, ['yaGalleryApp']);
 

@@ -154,6 +154,13 @@ body {
     /*border-radius: 10px;*/
 }
 
+#loading-animation {
+    // visibility: hidden;
+    color: red;
+    position: fixed;
+    left: 50px;
+    top: 50px;
+}
 
 #alert-box-container {
     position: fixed;
