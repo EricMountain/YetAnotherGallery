@@ -165,7 +165,7 @@ body {
 #alert-box-container {
     position: fixed;
     left: 50%;
-    top: 30%;
+    top: 5%;
     border: none;
 }
 
@@ -175,8 +175,8 @@ body {
     top: -50%;
     color: white;
     font-weight: bold;
-    background-color: darkred;
-    border: 1px solid darkred;
+    background-color: steelblue;
+    border: 1px solid darkgray;
     border-radius: 4px;
     padding: 2em;
     box-shadow: 5px 5px 5px black;

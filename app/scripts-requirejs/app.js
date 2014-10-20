@@ -235,9 +235,9 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                     $timeout(function() {
                         scope.$apply(function() {
                             dataModelService.imageLoading = false;
+                            console.log(dataModelService.imageLoading);
                         });
-                    }, 1000);
-                    console.log(dataModelService.imageLoading);
+                    }, 500);
                     resizeSubBlocks();
                 });
             }
