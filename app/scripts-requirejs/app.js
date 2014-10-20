@@ -6,7 +6,7 @@
 // http://192.168.1.11/yagallery/#/http://192.168.1.11/yag-sample/Pentax-20140905
 
 /*jshint unused: vars */
-define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', 'angular-route', 'angular-animate', 'angular-touch'], function($) {
+define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'], function($) {
     'use strict';
 
     // Handle resizing
@@ -42,7 +42,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
     });
 
     // Bootstrap Angular
-    var yaGalleryApp = angular.module('yaGalleryApp', ['ngRoute', 'ngAnimate', 'ngTouch', 'perfect_scrollbar']);
+    var yaGalleryApp = angular.module('yaGalleryApp', ['ngRoute', 'ngAnimate', 'ngTouch']);
 
     yaGalleryApp.factory('dataModelService', ['$rootScope', '$http', function ($rootScope, $http) {
 

@@ -35,17 +35,6 @@ requirejs.config({
                 'angular'
             ],
             exports: 'angular.mock'
-        },
-        'perfect-scrollbar': {
-            deps: [
-                'jquery'
-            ]
-        },
-        'angular-perfect-scrollbar': {
-            deps: [
-                'perfect-scrollbar',
-                'angular'
-            ]
         }
     },
     priority: [
