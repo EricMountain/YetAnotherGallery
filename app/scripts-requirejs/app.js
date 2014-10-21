@@ -267,10 +267,4 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
     // Hide the loading pane...
     $('#wait-pane-master').css({visibility: 'hidden'});
 
-    // Ugly, but can't seem to get the scrollable blocks sized correctly until
-    // after the initial load
-    setTimeout(function() {
-        resizeSubBlocks();
-    }, 10);
-
 });
