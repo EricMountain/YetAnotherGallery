@@ -154,12 +154,30 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
             .otherwise({ controller: 'yaGalleryCtrl'});
     }]);
 
-    yaGalleryApp.controller('yaGalleryCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', '$routeParams', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, $routeParams, dataModelService) {
+    yaGalleryApp.controller('yaGalleryCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', '$routeParams', '$document', '$window', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, $routeParams, $document, $window, dataModelService) {
+
+        $scope.isFullscreen = false;
 
         $scope.message = '';
         $scope.showMessage = false;
 
         $scope.dataModelService = dataModelService;
+
+        angular.element($window).bind('resize', function() {
+            resizeSubBlocks();
+
+            // Why on Earth do we have to delay this??
+            $timeout(function() {
+                if ($document[0].fullscreenElement ||
+                    $document[0].mozFullScreenElement ||
+                    $document[0].webkitFullscreenElement ||
+                    $document[0].msFullscreenElement) {
+                        $scope.isFullscreen = true;
+                } else {
+                    $scope.isFullscreen = false;
+                }
+            }, 100);
+        });
 
         $scope.$on('$routeChangeSuccess', function( $currentRoute, $previousRoute ) {
             if (typeof $routeParams.target !== 'undefined') {
