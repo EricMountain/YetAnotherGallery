@@ -223,6 +223,61 @@ body {
     position: relative;
 }
 
+/* Based on http://experiments.wemakesites.net/css3-metro-dropdown.html */
+.dropdown option,
+.dropdown:after,
+.dropdown::after,
+.dropdown select {
+    color: white;
+}
+
+.dropdown:after,
+.dropdown::after,
+.dropdown select {
+    display: block;
+    background: black;
+}
+
+.dropdown option,
+.dropdown select {
+    padding: 2px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    border: 0;
+}
+
+.dropdown::after {
+    content: "\25bc";
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 32px;
+    font-size: 12px;
+    line-height: 34px;
+    text-align: center;
+
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    pointer-events: none;
+}
+
+.dropdown select {
+    height: 34px;
+    border: 0;
+    vertical-align: middle;
+    font: normal 12px/14px "Segoe UI", Arial, Helvetica, Sans-serif;
+    outline: 0 none;
+ }
+
+.dropdown option {
+    background: #fff;
+    color: #333;
+ }
+
 /* ==========================================================================
    Animations for static elements
    From https://docs.angularjs.org/guide/animations
