@@ -109,6 +109,18 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
                 }
             },
 
+            SwitchImageSize: function(newSize) {
+                var newImageTShirtSize = '/' + newSize + '/';
+
+                if (newImageTShirtSize !== service.imageTShirtSize) {
+                    service.imageTShirtSize = newImageTShirtSize;
+                    service.currentImageUrl = service.imageUrl + service.imageTShirtSize + service.model.images[service.currentImageIndex].file;
+                    service.imageLoading = true;
+                    console.log('Model switched image size: ' + service.imageTShirtSize);
+                }
+
+            },
+
             LoadData: function (event, args) {
 
                 if (typeof args.location === 'undefined') {
