@@ -13,34 +13,79 @@ fi
 fulldir=`realpath -s $1`
 dirbase=`basename $fulldir`
 
-# Generate JSON index
-j=$fulldir.json
+# Generate JSON index in this file
+j="$fulldir.json"
 
-rm -f $j
 
-cat - >> $j <<EOF
+writeHeader() {
+    dest=$1
+    rm -f "$dest"
+    cat - >> "$dest" <<EOF
 {
-  "images": [ 
 EOF
+}
 
-cd $1/medium
-
-first=1
-for x in * ; do
-    if [ $first -ne 1 ] ; then
-        echo ',' >> $j
-    else
-        first=0
-    fi
-
-    echo -n '               { "file": "'$x'", "description": "Image '$x'" }' >> $j
-done
-cd - > /dev/null
-
-cat - >> $j <<EOF
-
-            ]
+writeTrailer() {
+    dest=$1
+    dir=$2
+    cat - >> "$dest" <<EOF
 }
 EOF
+}
 
+listSizes() {
+    dest=$1
+    dir=$2
+    cat - >> "$dest" <<EOF
+        "sizes": [
+EOF
 
+    firstsz=1
+    for s in $(find "$dir" -maxdepth 1 -mindepth 1 \( -type d -o -type l \) -printf '%f\n') ; do
+        if [ $firstsz -ne 1 ] ; then
+            echo ',' >> "$dest"
+        else
+            firstsz=0
+        fi
+
+        echo -n '               "'$s'"' >> "$dest"
+    done
+    cat - >> "$dest" <<EOF
+
+            ],
+EOF
+}
+
+listImages() {
+    dest="$1"
+    dir="$2"
+    cat - >> "$dest" <<EOF
+      "images": [
+EOF
+
+    onesize=$(find "$dir" -maxdepth 1 -mindepth 1 \( -type d -o -type l \) -printf '%f\n' | head -1)
+
+    cd "$dir/$onesize"
+
+    first=1
+    for x in * ; do
+        if [ $first -ne 1 ] ; then
+            echo ',' >> "$dest"
+        else
+            first=0
+        fi
+
+        echo -n '               { "file": "'$x'", "description": "Image '$x'" }' >> "$dest"
+    done
+    cd - > /dev/null
+
+    cat - >> "$dest" <<EOF
+
+            ]
+EOF
+}
+
+writeHeader "$j"
+listSizes "$j" "$1"
+listImages "$j" "$1"
+writeTrailer "$j"
