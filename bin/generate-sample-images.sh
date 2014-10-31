@@ -24,7 +24,8 @@ rm -f $j
 
 cat - >> $j <<EOF
 {
-  "images": [ 
+  "sizes": [ "medium", "small"],
+  "images": [
 EOF
 
 for i in {1..100} ; do
