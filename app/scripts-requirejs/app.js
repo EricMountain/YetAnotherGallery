@@ -56,7 +56,7 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
 
             currentImageIndex: -1,
             currentImageUrl: '',
-            imageTShirtSize: '/medium/',
+            imageTShirtSize: undefined,
 
             cachedImages: {},
             cachedImagesLowOffset: 0,
@@ -76,6 +76,10 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
                 var displacement = 'first';
                 if (typeof args.displacement !== 'undefined')
                     displacement = args.displacement;
+
+                if (typeof service.model.sizes !== 'undefined' &&
+                    typeof service.imageTShirtSize === 'undefined')
+                    service.imageTShirtSize = '/' + service.model.sizes[0] + '/';
 
                 if (typeof service.model.images !== 'undefined') {
                     var newIndex = -1;
