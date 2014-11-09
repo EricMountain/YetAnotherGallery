@@ -72,14 +72,35 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
             // Load image into cache if not already available, then display
             // Then do cache housekeeping
 
+            GetBestTShirtSize: function() {
+                var pageSurface = $(window).width() * $(window).height();
+
+                var newSize = '', newSurface = 0;
+                service.model.sizes.forEach(function(element, index, array) {
+                        var size = element.label;
+                        var surface = element.surface;
+
+                        if ((newSurface === 0) ||
+                            (surface >= pageSurface && surface < newSurface) ||
+                            (surface < pageSurface && surface > newSurface)) {
+                            newSize = size;
+                            newSurface = surface;
+                        }
+                });
+
+                return newSize;
+            },
+
             SwitchImage: function(event, args) {
                 var displacement = 'first';
                 if (typeof args.displacement !== 'undefined')
                     displacement = args.displacement;
 
                 if (typeof service.model.sizes !== 'undefined' &&
-                    typeof service.imageTShirtSize === 'undefined')
-                    service.imageTShirtSize = '/' + service.model.sizes[0] + '/';
+                    typeof service.imageTShirtSize === 'undefined') {
+                    service.imageTShirtSize = '/' + service.GetBestTShirtSize() + '/';
+                    //service.imageTShirtSize = '/' + service.model.sizes[0] + '/';
+                }
 
                 if (typeof service.model.images !== 'undefined') {
                     var newIndex = -1;

@@ -64,8 +64,8 @@
             <div id="make-fullscreen-container">
                 <span class="size-selector-text">
                     <span ng-repeat="size in dataModelService.model.sizes"
-                          ng-class="{sizeselected: dataModelService.imageTShirtSize == '/' + size + '/'}"
-                          ng-click="dataModelService.SwitchImageSize(size)">{{size}} </span>
+                          ng-class="{sizeselected: dataModelService.imageTShirtSize == '/' + size.label + '/'}"
+                          ng-click="dataModelService.SwitchImageSize(size.label)">{{size.label}} </span>
                 </span>
                 <img id="make-fullscreen" src="images/make-fullscreen.png" ng-click="goFullscreen({event: $event})" ng-show="!isFullscreen">
             </div>

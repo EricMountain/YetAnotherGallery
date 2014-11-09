@@ -24,7 +24,10 @@ rm -f $j
 
 cat - >> $j <<EOF
 {
-  "sizes": [ "medium", "small"],
+  "sizes": [
+             { "label": "medium", "surface": 480000 },
+             { "label": "small", "surface": 21600 }
+           ],
   "images": [
 EOF
 
