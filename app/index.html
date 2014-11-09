@@ -63,7 +63,7 @@
         <div id="make-fullscreen-master">
             <div id="make-fullscreen-container">
                 <span class="size-selector-text">
-                    <span ng-repeat="size in dataModelService.model.sizes"
+                    <span ng-repeat="size in dataModelService.model.sizes | orderBy:'surface':false"
                           ng-class="{sizeselected: dataModelService.imageTShirtSize == '/' + size.label + '/'}"
                           ng-click="dataModelService.SwitchImageSize(size.label)">{{size.label}} </span>
                 </span>
