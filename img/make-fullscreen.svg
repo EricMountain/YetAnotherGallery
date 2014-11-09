@@ -15,7 +15,7 @@
    version="1.1"
    inkscape:version="0.48.5 r10040"
    sodipodi:docname="make-fullscreen.svg"
-   inkscape:export-filename="/home/eric/make-fullscreen.png"
+   inkscape:export-filename="/home/eric/Projects/WebSites/YetAnotherGallery/app/images/make-fullscreen.png"
    inkscape:export-xdpi="5.1813121"
    inkscape:export-ydpi="5.1813121">
   <sodipodi:namedview
@@ -288,7 +288,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
