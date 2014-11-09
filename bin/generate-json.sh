@@ -52,7 +52,7 @@ EOF
         # identify real-life-sample/Pentax-20140905/medium/IMGP7357.jpg | cut -f  3 -d ' ' | sed -e 's/x/*/' | bc
         sample=$(ls -1 "$dir/$s" | head -1)
         surface=$(identify "$dir/$s/$sample" | cut -f  3 -d ' ' | sed -e 's/x/*/' | bc)
-        echo -n '               {"label": '$s'", "surface": '$surface'}' >> "$dest"
+        echo -n '               {"label": "'$s'", "surface": '$surface'}' >> "$dest"
     done
     cat - >> "$dest" <<EOF
 
