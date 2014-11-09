@@ -99,7 +99,6 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
                 if (typeof service.model.sizes !== 'undefined' &&
                     typeof service.imageTShirtSize === 'undefined') {
                     service.imageTShirtSize = '/' + service.GetBestTShirtSize() + '/';
-                    //service.imageTShirtSize = '/' + service.model.sizes[0] + '/';
                 }
 
                 if (typeof service.model.images !== 'undefined') {
@@ -129,7 +128,7 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
                         service.currentImageIndex = newIndex;
                         service.currentImageUrl = service.imageUrl + service.imageTShirtSize + service.model.images[service.currentImageIndex].file;
                         service.imageLoading = true;
-                        console.log('Model switched image: ' + service.currentImageIndex);
+                        console.info('Model switched image: ' + service.currentImageIndex);
                     }
                 }
             },
@@ -141,7 +140,7 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
                     service.imageTShirtSize = newImageTShirtSize;
                     service.currentImageUrl = service.imageUrl + service.imageTShirtSize + service.model.images[service.currentImageIndex].file;
                     service.imageLoading = true;
-                    console.log('Model switched image size: ' + service.imageTShirtSize);
+                    console.info('Model switched image size: ' + service.imageTShirtSize);
                 }
 
             },
@@ -156,12 +155,11 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
                 service.jsonUrl = args.location + '.json';
                 service.imageUrl = args.location;
 
-                console.log('image url:', service.imageUrl);
-                console.log('json url: ', service.jsonUrl);
+                console.info('Image url:', service.imageUrl, 'json url: ', service.jsonUrl);
 
                 $http.get(service.jsonUrl)
                     .success(function(json, status, headers, config) {
-                        console.log('JSON loaded');
+                        console.info('JSON loaded');
 
                         var data = angular.fromJson(json);
                         service.model = data;
@@ -171,9 +169,7 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
                         $rootScope.$broadcast('dataloaded', args);
                     })
                     .error(function(data, status, headers, config) {
-                        console.log('Error loading JSON');
-                        console.log(status);
-                        console.log(headers);
+                        console.error('Error loading JSON', status, headers);
                     });
 
             }
@@ -219,20 +215,20 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
         $scope.$on('$routeChangeSuccess', function( $currentRoute, $previousRoute ) {
             if (typeof $routeParams.target !== 'undefined') {
 
-                console.log('target: ' + $routeParams.target);
+                console.info('target: ' + $routeParams.target);
 
                 $scope.galleryBaseUrl = $routeParams.target;
 
-                console.log('Gallery base URL from routeParams: ' + $scope.galleryBaseUrl);
+                console.info('Gallery base URL from routeParams: ' + $scope.galleryBaseUrl);
             } else {
                 $scope.galleryBaseUrl = 'sample/sample';
-                console.log('No target URL specified for JSON -> using: ' + $scope.galleryBaseUrl);
+                console.warn('No target URL specified for JSON -> using: ' + $scope.galleryBaseUrl);
             }
 
             $rootScope.$broadcast('loaddata', {location: $scope.galleryBaseUrl});
         });
 
-        $scope.$on('dataloaded', function() {console.log('Data loaded'); /*$scope.switchImage();*/});
+        $scope.$on('dataloaded', function() {console.info('Data loaded');});
 
         $scope.keypress = function($event) {
             var isHandledHere = true;
@@ -285,12 +281,9 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
         return {
             link: function(scope, element, attrs) {
                 element.bind('load', function(e) {
-                    console.log('image loaded');
-                    console.log(dataModelService.imageLoading);
                     $timeout(function() {
                         scope.$apply(function() {
                             dataModelService.imageLoading = false;
-                            console.log(dataModelService.imageLoading);
                         });
                     }, 500);
                     resizeSubBlocks();
