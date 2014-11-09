@@ -74,8 +74,8 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
 
             GetBestTShirtSize: function() {
                 var pageSurface = $(window).width() * $(window).height();
-
                 var newSize = '', newSurface = 0;
+
                 service.model.sizes.forEach(function(element, index, array) {
                         var size = element.label;
                         var surface = element.surface;
