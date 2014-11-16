@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Generate a JSON index for the images contained in the specified directory
+#
+# Assume a direcory structure similar to te following:
+#
+# |- $1
+#    |- small
+#       |- small photos
+#    |- large
+#       |- large photos
+#
+# There can be any number of subdirectories containing inages.
+# We assume all subdirectories contain the same images, jast in different sizes.
+#
+# The generated JSON index includes the list of photos, and the list of sizes.
+
 set -o errexit
 #set -x
 
