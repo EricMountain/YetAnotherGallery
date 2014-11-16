@@ -14,8 +14,7 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
         var pageWidth = $(window).width();
         var pageHeight = $(window).height();
 
-        var image = new Image();
-        image.src = $('#main-photo').attr('src');
+        var image = $('#main-photo')[0];
         var imageWidth = image.naturalWidth;
         var imageHeight = image.naturalHeight;
 
@@ -35,6 +34,8 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
         $('#main-photo').css({'height': newHeight});
 
         $('#main-photo-container').css({'height': $('#main-photo').height()});
+
+        // alert('pW:' + pageWidth + ', pH:' + pageHeight + ', iW:' + imageWidth + ', iH:' + imageHeight + ', nW:' + newWidth + ', nH:' + newHeight);
     }
 
     $(window).resize(function() {
