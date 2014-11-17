@@ -58,10 +58,14 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
             currentImageIndex: -1,
             currentImageUrl: '',
             imageTShirtSize: undefined,
+            smallestTShirtSize: undefined,
 
             cachedImages: {},
             cachedImagesLowOffset: 0,
             cachedImagesHighOffset: 0,
+
+            thumbnailsToShow: 10,
+            thumbnails: [],
 
             imageLoading: true,
 
@@ -90,6 +94,30 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
                 });
 
                 return newSize;
+            },
+
+            GetSmallestTShirtSize: function() {
+                var newSize = '', newSurface = 0;
+
+                service.model.sizes.forEach(function(element, index, array) {
+                        var size = element.label;
+                        var surface = element.surface;
+
+                        if ((newSurface === 0) || (surface < newSurface)) {
+                            newSize = size;
+                            newSurface = surface;
+                        }
+                });
+
+                return newSize;
+            },
+
+            InitThumbnails: function() {
+                service.smallestTShirtSize = '/' + service.GetSmallestTShirtSize() + '/';
+
+                for (var i = 0; i < service.thumbnailsToShow; i++) {
+                    service.thumbnails[i] = i;
+                }
             },
 
             SwitchImage: function(event, args) {
@@ -166,6 +194,7 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
                         service.model = data;
 
                         service.SwitchImage(null, {displacement: 'first'});
+                        service.InitThumbnails();
 
                         $rootScope.$broadcast('dataloaded', args);
                     })

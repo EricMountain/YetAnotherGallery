@@ -27,6 +27,27 @@ body {
     /*border-radius: 10px;*/
 }
 
+#thumbnail-container {
+    position: absolute;
+    bottom: 10%;
+    height: 120px;
+    width: 100%;
+    background-color: red;
+}
+
+#thumbnails {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+div.thumbnail {
+    display: inline-block;
+}
+
+img.thumbnail {
+    width: 120px;  // FIXME
+}
+
 #loading-animation {
     // visibility: hidden;
     color: red;
