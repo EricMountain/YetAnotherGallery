@@ -36,12 +36,13 @@ body {
 }
 
 #thumbnails {
-    margin-right: auto;
-    margin-left: auto;
+    // display: inline-block;
+    // margin: 0 auto;
 }
 
 div.thumbnail {
     display: inline-block;
+    padding: 1px;
 }
 
 img.thumbnail {
