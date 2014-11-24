@@ -44,7 +44,8 @@ and Firefox.  It should work on Opera.
 
 #### Keyboard shortcuts:
 
-* <<TODO>>
+* Right/left-cursor: next/previous image.
+* Home/end: Last/first image.
 
 ## Developing YAGallery
 
@@ -65,16 +66,6 @@ e.g. on Arch:
 * npm install
 * bower update
 
-For the record, the original sequence was:
-* npm install -g bower
-* npm install -g yo
-* npm install -g generator-angular
-* npm install -g generator-angular-require
-* npm install -g generator-protractor
-* npm install karma-firefox-launcher --save-dev
-* npm install karma-jasmine@2_0 --save-dev
-* npm install grunt-protractor-runner --save-dev
-
 ### Building, testing…
 
 Generating sample images:
@@ -82,13 +73,10 @@ Generating sample images:
 http://www.imagemagick.org/Usage/text/#text_operators
 convert -background lightblue -fill black -size 800x600 -gravity center label:1 1.jpg
 
-
-
 #### Basics
 
 * Build: grunt build
 * Serve development local copy and launch in browser: grunt serve
-
 
 #### Running automated tests
 
@@ -109,6 +97,4 @@ YAGallery is built on top of the following:
 - [AngularJS](https://angularjs.org/)
 - [CouchDB](http://couchdb.apache.org/)
 - [jQuery](http://jquery.com/)
-- [perfect-scrollbar](http://noraesae.github.io/perfect-scrollbar/)
-- [angular-perfect-scrollbar](https://github.com/itsdrewmiller/angular-perfect-scrollbar)
 - [RequireJS](http://requirejs.org/)
