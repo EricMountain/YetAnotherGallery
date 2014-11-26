@@ -115,7 +115,7 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
             InitThumbnails: function() {
                 service.smallestTShirtSize = '/' + service.GetSmallestTShirtSize() + '/';
 
-                for (var i = 0; i < service.thumbnailsToShow; i++) {
+                for (var i = 0; i < service.model.images.length; i++) { //service.thumbnailsToShow
                     service.thumbnails[i] = i;
                 }
             },
@@ -325,6 +325,6 @@ define(['jquery', 'angular', 'angular-route', 'angular-animate', 'angular-touch'
     angular.bootstrap(document, ['yaGalleryApp']);
 
     // Hide the loading pane...
-    $('#wait-pane-master').css({visibility: 'hidden'});
+    $('#wait-pane-container').css({visibility: 'hidden'});
 
 });

@@ -32,9 +32,7 @@
 
     </head>
     <body ng-controller="yaGalleryCtrl"
-          ng-keydown="keypress($event)"
-          ng-swipe-left="swipeLeft({event: $event})"
-          ng-swipe-right="swipeRight({event: $event})">
+          ng-keydown="keypress($event)">
 
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -43,15 +41,18 @@
         <div id="main-photo-container">
           <img ng-src="{{dataModelService.currentImageUrl}}"
                id="main-photo"
+             ng-swipe-left="swipeLeft({event: $event})"
+               ng-swipe-right="swipeRight({event: $event})"
+               ondragstart="return false;"
                centre-image>
         </div>
 
         <div id="thumbnail-container">
-            <div id="thumbnails">
+            <!-- div id="thumbnails" -->
                 <div class="thumbnail" ng-repeat="x in dataModelService.thumbnails">
                     <img class="thumbnail" ng-src="{{dataModelService.imageUrl + dataModelService.smallestTShirtSize + dataModelService.model.images[x].file}}">
                 </div>
-            </div>
+            <!-- /div -->
         </div>
 
         <div id="alert-box-container">
@@ -60,23 +61,19 @@
           </div>
         </div>
 
-        <div id="wait-pane-master">
-            <div id="wait-pane-container">
-                <div id="wait-pane">
-                    Loading...
-                </div>
-            </div>
+        <div id="wait-pane-container">
+          <div id="wait-pane">
+            Loading...
+          </div>
         </div>
 
-        <div id="make-fullscreen-master">
-            <div id="make-fullscreen-container">
-                <span class="size-selector-text">
-                    <span ng-repeat="size in dataModelService.model.sizes | orderBy:'surface':false"
-                          ng-class="{sizeselected: dataModelService.imageTShirtSize == '/' + size.label + '/'}"
-                          ng-click="dataModelService.SwitchImageSize(size.label)">{{size.label}} </span>
-                </span>
-                <img id="make-fullscreen" src="images/make-fullscreen.png" ng-click="goFullscreen({event: $event})" ng-show="!isFullscreen">
-            </div>
+        <div id="make-fullscreen-container">
+          <span class="size-selector-text">
+            <span ng-repeat="size in dataModelService.model.sizes | orderBy:'surface':false"
+                  ng-class="{sizeselected: dataModelService.imageTShirtSize == '/' + size.label + '/'}"
+                  ng-click="dataModelService.SwitchImageSize(size.label)">{{size.label}} </span>
+          </span>
+          <img id="make-fullscreen" src="images/make-fullscreen.png" ng-click="goFullscreen({event: $event})" ng-show="!isFullscreen">
         </div>
 
         <!-- build:js(.) scripts/vendor/oldieshim.js -->
