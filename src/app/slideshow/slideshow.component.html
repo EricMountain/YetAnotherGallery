@@ -1,0 +1,41 @@
+<div id="main-photo-container" *ngIf="mediaList.media.length != 0">
+    <img src="{{target}}/{{pathPrefix}}{{mediaList.media[currentOffset].path}}{{pathSuffix}}{{mediaList.media[currentOffset].file}}" id="main-photo"
+        (click)="nextMedia()" (contextmenu)="previousMedia()" (load)="onImageLoad($event)">
+</div>
+
+<div id="media-list" *ngIf="mediaList.media.length != 0 && debug">
+    <ul>
+        <li *ngFor="let size of mediaList.sizes">{{size.pathPrefix}} {{size.pathSuffix}}</li>
+    </ul>
+    <ul>
+        <li *ngFor="let media of mediaList.media">{{media.path}} {{media.file}}</li>
+    </ul>
+</div>
+
+<!-- Floats over the main window and eg indicates an image is loading -->
+<div id="alert-box-container" *ngIf="imageLoading">
+    <div id="alert-box" class="show-hide">
+        Image loading...
+    </div>
+</div>
+
+<!-- Initial display, until we have the data file and first image loaded -->
+<div id="wait-pane-root" *ngIf="!isLoaded">
+    <div id="wait-pane-container">
+        <div id="wait-pane">
+            Loading {{target}}…
+        </div>
+    </div>
+</div>
+
+<!-- Floats bottom-right and provides ability to switch modes -->
+<div id="make-fullscreen-root">
+    <div id="make-fullscreen-container">
+        <span class="size-selector-text">
+            <span *ngFor="let size of mediaList.sizes" [ngClass]="{'sizeselected': size.label == label}"
+                (click)="setLabel(size.label)">{{size.label}} </span>
+        </span>
+        <mat-icon class="screen" *ngIf="!isFullScreen" (click)="openFullscreen()">fullscreen</mat-icon>
+        <mat-icon class="screen" *ngIf="isFullScreen" (click)="closeFullscreen()">fullscreen_exit</mat-icon>
+    </div>
+</div>
